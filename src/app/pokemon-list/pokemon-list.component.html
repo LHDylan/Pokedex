@@ -1,1 +1,7 @@
-<card *ngFor="let pokemon of pokemons" [pokemon]="pokemon"></card>
+<div class="card-list">
+    <div class="card" *ngFor="let pokemon of pokemons; let i = index" >
+        <div>{{pokemon.name}}</div>
+        <div>{{pokemons[i].sprites.front_default}}</div>
+        <a (click)="getDetails(i)">hello</a>
+    </div>
+</div>

@@ -1,30 +1,57 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ApiService } from '../services/api.service';
-import { CardComponent } from './layout/card/card.component';
 import { CommonModule } from '@angular/common';
+import { RouterLink, Router } from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [CardComponent, CommonModule],
+  imports: [
+    CommonModule, 
+    RouterLink,
+    MatPaginatorModule
+  ],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.css',
 })
+
 export class PokemonListComponent implements OnInit {
+  /**
+   * Injection du service ApiService
+   */
   private service: ApiService = inject(ApiService);
-
-  ngOnInit() {
-    this.fetchData();
-  }
-
-  pokemons : any[]= [];
-  fetchData() {
-    this.service.getList().subscribe((data) => {
-      this.pokemons = data.results;
-      console.log(this.pokemons);
+  /**
+   * Injection du service Router
+   */
+  private router = inject(Router);
+  /**
+   * L'array qui contient les pokemons 
+   */
+  protected pokemons: any[] = [];
+  /**
+   * L'Object qui contient les informations d'un pokemon
+   */
+  protected pokemon: any = {};
+  /**
+   * Function qui récupère la liste des pokemons au lancement du composant
+   */
+  public ngOnInit() {
+    this.service.getList().subscribe((data: any) => {
+      this.pokemons = data;
+    this.service.getDataDetails(this.pokemons[0].url).subscribe((dataUrl: any) => {
+      console.log(dataUrl);
+    })
     });
   }
-}
 
-// https://www.w3schools.com/howto/howto_css_cards.asp
-// https://angular.fr/lifecycle/ng-on-init
+  /**
+   * Function qui redirige vers le composant details
+   */
+  public getDetails(id: number) {
+    // console.log(id);
+    // console.log(this.pokemons[id])
+    this.pokemon = this.pokemons[id];
+    this.router.navigate(['details', id]);
+  }
+}

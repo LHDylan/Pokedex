@@ -1,0 +1,17 @@
+.card-list {
+    display : flex;
+    gap: 50px;
+    flex-wrap : wrap;
+    justify-content : center;
+    align-items : center;
+}
+
+.card-list .card {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+}
+
