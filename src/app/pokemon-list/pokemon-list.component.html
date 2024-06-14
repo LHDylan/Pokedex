@@ -1,7 +1,7 @@
 <div class="card-list">
-    <div class="card" *ngFor="let pokemon of pokemons; let i = index" >
-        <div>{{pokemon.name}}</div>
-        <div>{{pokemons[i].sprites.front_default}}</div>
-        <a (click)="getDetails(i)">hello</a>
-    </div>
+  <div *ngFor="let detail of details; let i = index">
+    <div>{{detail.name}}</div>
+    <img  src="{{detail.sprites.front_default}}">
+    <a (click)="getPageDetails(i)"><i class="material-icons">arrow_forward</i></a>
+  </div>
 </div>

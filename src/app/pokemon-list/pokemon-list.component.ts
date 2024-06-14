@@ -1,57 +1,48 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [
-    CommonModule, 
-    RouterLink,
-    MatPaginatorModule
-  ],
+  imports: [CommonModule, RouterLink, MatPaginatorModule],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.css',
 })
-
 export class PokemonListComponent implements OnInit {
+  
   /**
-   * Injection du service ApiService
+   * Injection du service ApiService, Router
    */
-  private service: ApiService = inject(ApiService);
+  constructor(private service: ApiService, private router: Router) {}
   /**
-   * Injection du service Router
+   * L'array qui contient les pokemons
    */
-  private router = inject(Router);
+  private pokemons: any[] = [];
   /**
-   * L'array qui contient les pokemons 
+   * L'array qui contient les détails de chaque pokemon
    */
-  protected pokemons: any[] = [];
+  protected details: any[] = [];
   /**
-   * L'Object qui contient les informations d'un pokemon
-   */
-  protected pokemon: any = {};
-  /**
-   * Function qui récupère la liste des pokemons au lancement du composant
+   * Function qui récupère la liste des pokemons et les détails au lancement du composant
    */
   public ngOnInit() {
-    this.service.getList().subscribe((data: any) => {
+    this.service.getPokemons().subscribe((data: any) => {
       this.pokemons = data;
-    this.service.getDataDetails(this.pokemons[0].url).subscribe((dataUrl: any) => {
-      console.log(dataUrl);
-    })
+      this.pokemons.map((pokemon :any) => {
+        this.service.getPokemonDetails(pokemon.url).subscribe((details: any) => {
+          this.details.push(details);
+        }); 
+      });
+      // console.log(this.pokemons, this.details);
     });
   }
-
   /**
-   * Function qui redirige vers le composant details
-   */
-  public getDetails(id: number) {
-    // console.log(id);
-    // console.log(this.pokemons[id])
-    this.pokemon = this.pokemons[id];
+  * Function qui redirige vers le composant details
+  */
+  public getPageDetails(id: number) {
     this.router.navigate(['details', id]);
-  }
+  }  
 }

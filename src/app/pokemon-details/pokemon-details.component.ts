@@ -11,18 +11,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pokemon-details.component.css',
 })
 export class PokemonDetailsComponent {
-
   /**
    * L'object qui contient les informations d'un pokemon
    */
-  protected pokemon: any = {};
-  /**
-   * Les propriétés du pokémon contenues dans sa propriété url
-   */
   protected details: any | boolean = false;
   /**
-   * Injection du service ApiService
-   * Injection du service ActivatedRoute
+   * Injection du service ApiService, ActivatedRoute
    */
   constructor(private service: ApiService, private route: ActivatedRoute) {}
   /**
@@ -30,14 +24,11 @@ export class PokemonDetailsComponent {
    */
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      const id = params['id'];
-      this.service.getList().subscribe((data: any) => {
-        this.pokemon = data[id];
-      });
-      this.service.getDataDetails(this.pokemon.url).subscribe((data: any) => {
-        this.details = data;
-        console.log(this.pokemon);
-        console.log(this.details);
+      const id = Number(params['id'])+1;
+      const url = `https://pokeapi.co/api/v2/pokemon/${id}/`;
+      this.service.getPokemonDetails(url).subscribe((details: any) => {
+        this.details = details;
+        // console.log(this.details);
       });
     });
   }
