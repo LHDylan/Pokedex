@@ -1,73 +1,95 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+
+.données {
+    font-size: 24px;
+}
+.stats {
+    font-size: 24px;
+}
+table {
+  margin-top: 2px;
+}
+th,
+td {
+  padding: 10px;
+}
+
 .card-normal {
-    background-color:#A8A77A;
+  background-color: #a8a77a80;
 }
 
 .card-fighting {
-    background-color:#C22E28;
+  background-color: #c22e2880;
 }
 
 .card-flying {
-    background-color:#A98FF3;
+  background-color: #a98ff380;
 }
 
 .card-poison {
-    background-color: #A33EA1;
+  background-color: #a33ea180;
 }
 
 .card-ground {
-    background-color:#E2BF65;
+  background-color: #e2bf6580;
 }
 
 .card-rock {
-    background-color:#B6A136;
+  background-color: #b6a13680;
 }
 
 .card-bug {
-    background-color:#A6B91A;
+  background-color: #a6b91a80;
 }
 
 .card-ghost {
-    background-color:#735797;
+  background-color: #73579780;
 }
 
 .card-steel {
-    background-color:#B7B7CE;
+  background-color: #b7b7ce80;
 }
 
 .card-fire {
-    background-color:#EE8130;
+  background-color: #ee823080;
 }
 
 .card-water {
-    background-color:#6390F0;
+  background-color: #6390f080;
 }
 
 .card-grass {
-    background-color:#7AC74C;
+  background-color: #79c74c80;
 }
 
 .card-electric {
-    background-color:#F7D02C;
+  background-color: #f7d02c80;
 }
 
 .card-psychic {
-    background-color:#D685AD;
+  background-color: #d685ad80;
 }
 
 .card-ice {
-    background-color:#96D9D6;
+  background-color: #96d9d680;
 }
 
 .card-dragon {
-    background-color: #6F35FC;
+  background-color: #6f35fc80;
 }
 
 .card-dark {
-    background-color:#705746;
+  background-color: #70574680;
 }
 
 .card-fairy {
-    background-color:#FAC7E6;
+  background-color: #fac7e680;
 }
-
-

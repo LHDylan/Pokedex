@@ -18,11 +18,12 @@ export class ApiService {
   /**
    * Requête de l'API
    */
-  public getPokemons(): Observable<any> {
-      return this.http.get(`${this.baseUrl}?offset=0&limit=20`).pipe(map((data: any) => {
-        return data.results; 
+  public getPokemons(offset: number, limit: number): Observable<any> {
+      return this.http.get(`${this.baseUrl}?offset=${offset}&limit=${limit}`).pipe(map((data: any) => {
+        return data;
       }));
   }
+
   /**
    * Function qui renvoie les informations d'un pokemon
    */

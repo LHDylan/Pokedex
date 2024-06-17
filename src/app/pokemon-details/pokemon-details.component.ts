@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, RouterLink } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
+import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
+
 
 @Component({
   selector: 'app-pokemon-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+  ],
   templateUrl: './pokemon-details.component.html',
   styleUrl: './pokemon-details.component.css',
 })
@@ -24,12 +29,13 @@ export class PokemonDetailsComponent {
    */
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-      const id = Number(params['id'])+1;
+      const id = Number(params['id']) + 1;
       const url = `https://pokeapi.co/api/v2/pokemon/${id}/`;
       this.service.getPokemonDetails(url).subscribe((details: any) => {
         this.details = details;
-        // console.log(this.details);
+        console.log(this.details);
       });
     });
   }
 }
+

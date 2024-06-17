@@ -1,22 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { RouterLink, Router, RouterOutlet, ActivatedRoute } from '@angular/router';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatPaginatorModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterOutlet,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatCardModule,
+    MatChipsModule
+  ],
   templateUrl: './pokemon-list.component.html',
   styleUrl: './pokemon-list.component.css',
 })
 export class PokemonListComponent implements OnInit {
-  
-  /**
-   * Injection du service ApiService, Router
-   */
-  constructor(private service: ApiService, private router: Router) {}
+
+  public offset = 0;
+  public limit = 20;
+  public totalCount = 0;
+  public currentPage = 0;
   /**
    * L'array qui contient les pokemons
    */
@@ -25,24 +36,44 @@ export class PokemonListComponent implements OnInit {
    * L'array qui contient les détails de chaque pokemon
    */
   protected details: any[] = [];
+  
+  /**
+   * Injection du service ApiService, Router
+   */
+  constructor(private service: ApiService, private router: Router) {}
   /**
    * Function qui récupère la liste des pokemons et les détails au lancement du composant
    */
   public ngOnInit() {
-    this.service.getPokemons().subscribe((data: any) => {
-      this.pokemons = data;
+    this.loadPokemons();
+    
+  }
+  /**
+  * Function qui redirige vers le composant details
+  */
+  public getPageDetails(id: number) {
+    this.router.navigate(['details', (id + this.offset)]);
+  }
+
+  public loadPokemons() {
+    this.details = [];
+    this.pokemons = [];
+    this.service.getPokemons(this.offset, this.limit).subscribe((data: any) => {
+      this.pokemons = data.results;
+      this.totalCount = data.count;
       this.pokemons.map((pokemon :any) => {
         this.service.getPokemonDetails(pokemon.url).subscribe((details: any) => {
           this.details.push(details);
         }); 
       });
       // console.log(this.pokemons, this.details);
-    });
+    });    
   }
-  /**
-  * Function qui redirige vers le composant details
-  */
-  public getPageDetails(id: number) {
-    this.router.navigate(['details', id]);
-  }  
+
+  public onPageChange(event: any) {
+    this.limit = event.pageSize;
+    this.offset = event.pageSize * event.pageIndex;
+    console.log(this.offset, this.limit, this.totalCount);
+    this.loadPokemons();
+  }
 }

@@ -1,0 +1,17 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+  <mat-tab label="Accueil">
+    <ng-template matTabContent>
+      <app-home></app-home>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Pokémons">
+    <ng-template matTabContent>
+      <app-pokemon-list></app-pokemon-list>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Who's that pokémon ?">
+    <ng-template matTabContent>
+      <app-about></app-about>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

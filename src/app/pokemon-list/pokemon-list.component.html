@@ -1,7 +1,32 @@
+<mat-paginator [length]="totalCount"
+               [pageSize]="limit"
+               [pageIndex]="currentPage"
+               [pageSizeOptions]="[10, 25, 50, 100]"
+               (page)="onPageChange($event)"
+               aria-label="Select page">
+</mat-paginator>
 <div class="card-list">
-  <div *ngFor="let detail of details; let i = index">
-    <div>{{detail.name}}</div>
-    <img  src="{{detail.sprites.front_default}}">
+  <mat-card class="card example-card card-{{detail.types[0].type.name}}" 
+    style="
+      width: 150px; 
+      display: flex;  
+      align-items: center;" 
+    appearance="outlined" *ngFor="let detail of details; let i = index">
+    <mat-card-header>
+      <img mat-card-image src="{{ detail.sprites.front_default }}" alt="Photo of a Shiba Inu">
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card-title>{{ detail.name }}</mat-card-title>
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer">
+      <mat-chip-set  aria-label="pokemons traits">
+        <div *ngFor="let type of detail.types; let j = index">
+          <mat-chip class="tag-{{detail.types[j].type.name}}">{{ detail.types[j].type.name }}</mat-chip>
+        </div>
+      </mat-chip-set>
+    </mat-card-footer>
     <a (click)="getPageDetails(i)"><i class="material-icons">arrow_forward</i></a>
-  </div>
+  </mat-card>
 </div>
+
+

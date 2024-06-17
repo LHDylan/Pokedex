@@ -1,5 +1,56 @@
 
-<div>
+<div class="container">
+    <div class="image">
     <h1>{{details.name}}</h1>
-    <div ngClass="card-{{details.types[0].type.name}}" *ngIf="details"><img style="width: 200px; height: 200px"  [src]="details.sprites.front_default"></div>
+    <div ngClass="card-{{details.types[0].type.name}}" *ngIf="details"><img style="width: 400px; height: 400px;"  [src]="details.sprites.other['official-artwork'].front_default"></div>
+    </div>
+    <div class="données">
+        <h2>Pokédex Informations</h2>
+    <div>National n°: {{details.id}}</div>
+    <div style="display: flex; gap: 10px;">
+        Type: 
+        <div *ngFor="let type of details.types; let i = index"> {{details.types[i].type.name}} </div>
+    </div>
+    <div style="display: flex; gap: 10px;">
+        Abilities: 
+        <div *ngFor="let abilitie of details.abilities; let i = index">{{details.abilities[i].ability.name}} </div>
+    </div>
+    <div>Height: {{details.height/10}} meter(s)</div>
+    <div>Weight: {{details.weight/10}} kilogramme(s)</div>
 </div>
+    <div class="stats">
+        <h2>Basic Statistics</h2>
+    <table>
+        <tr>
+            <th>{{details.stats[0].stat.name}}</th>
+            <th>{{details.stats[0]["base_stat"]}}</th>
+            
+        </tr>
+        <tr>
+            <th>{{details.stats[1].stat.name}}</th>
+            <th>{{details.stats[1]["base_stat"]}}</th>
+        </tr>
+        <tr>
+            <th>{{details.stats[2].stat.name}}</th>
+            <th>{{details.stats[2]["base_stat"]}}</th>
+        </tr>
+        <tr>
+            <th>{{details.stats[3].stat.name}}</th>
+            <th>{{details.stats[3]["base_stat"]}}</th>
+        </tr>
+        <tr>
+            <th>{{details.stats[4].stat.name}}</th>
+            <th>{{details.stats[4]["base_stat"]}}</th>
+        </tr>
+        <tr>
+            <th>{{details.stats[5].stat.name}}</th>
+            <th>{{details.stats[5]["base_stat"]}}</th>
+        </tr>
+
+    </table>
+</div>
+</div>
+<button routerLink="/home">Retour</button>
+
+
+    
