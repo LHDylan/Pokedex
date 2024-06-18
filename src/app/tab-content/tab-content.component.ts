@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
+import {Component, OnInit } from '@angular/core';
+import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { HomeComponent } from "../home/home.component";
 import { PokemonListComponent } from "../pokemon-list/pokemon-list.component";
 import { AboutComponent } from "../about/about.component";
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab-content',
@@ -17,23 +17,37 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './tab-content.component.html',
   styleUrl: './tab-content.component.css'
 })
-export class TabContentComponent {
+export class TabContentComponent{
 
-  public selectedIndex = 0;
+  // public tabIndex = 0;
 
+  // constructor(private router: Router) {}
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+// ngOnInit() {
+//     this.tabIndex = this.router.url === '/home' ? 0 : 1;
+//     this.tabIndex = this.router.url === '/pokemons' ? 1 : this.tabIndex;
+//     this.tabIndex = this.router.url === '/qui-sommes-nous' ? 2 : this.tabIndex;
+// }
 
-  ngOnInit() {
-    this.route.data.subscribe((data: any) => {
-      console.log(data.tabIndex);
-      this.selectedIndex = data.tabIndex;
-    });
-  }
-
-  onTabChange(event: any) {
-    const tabRoutes = ["home", "pokemons", "qui-sommes-nous"];
-    this.router.navigate([tabRoutes[event.index]]);
-  }
-
+//   onTabChange(event : MatTabChangeEvent) {
+    
+//     console.log('Nouvelle tab : ' + event.index)
+//     // Update the URL based on the selected tab
+//     switch (event.index) {
+//       case 0:
+//         console.log(this.tabIndex);
+//         this.router.navigate(['home']);
+//         break;
+//         case 1:
+//           console.log(this.tabIndex);
+//           this.router.navigate(['pokemons']);
+//           break;
+//           case 2:
+//             console.log(this.tabIndex);
+//             this.router.navigate(['qui-sommes-nous']);
+//             break;
+//             default:
+//               break;
+//             }
+//   }
 }

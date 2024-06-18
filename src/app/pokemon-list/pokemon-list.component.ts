@@ -46,7 +46,6 @@ export class PokemonListComponent implements OnInit {
    */
   public ngOnInit() {
     this.loadPokemons();
-    
   }
   /**
   * Function qui redirige vers le composant details
@@ -59,14 +58,16 @@ export class PokemonListComponent implements OnInit {
     this.details = [];
     this.pokemons = [];
     this.service.getPokemons(this.offset, this.limit).subscribe((data: any) => {
-      this.pokemons = data.results;
+      this.pokemons= data.results;
       this.totalCount = data.count;
+      console.log(this.pokemons, this.totalCount);
       this.pokemons.map((pokemon :any) => {
         this.service.getPokemonDetails(pokemon.url).subscribe((details: any) => {
           this.details.push(details);
+          console.log(this.details);
         }); 
+        // console.log(this.pokemons, this.details);
       });
-      // console.log(this.pokemons, this.details);
     });    
   }
 

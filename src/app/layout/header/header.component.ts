@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
     selector: 'app-header',
@@ -8,7 +9,8 @@ import { RouterOutlet, RouterLink } from '@angular/router';
     styleUrl: './header.component.css',
     imports: [
         RouterOutlet,
-        RouterLink
+        RouterLink,
+        MatToolbar
     ]
 })
 export class HeaderComponent {
